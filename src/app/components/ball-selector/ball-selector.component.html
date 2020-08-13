@@ -1,0 +1,48 @@
+<div class="container "
+     *ngIf="!playingGame">
+  <h1 class="text-center">Choose your ball</h1>
+  <div class="row ">
+
+    <div class="ball col d-flex justify-content-center "
+         [ngStyle]="{backgroundColor: ball.classColor}"
+         (click)="chooseBallToPlay(ball)"
+         [ngClass]="{'chosen': ball.chosen}"
+         *ngFor="let ball of ballData">
+      <span class="align-self-center text-white"> {{ball.number}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-5"
+     *ngIf="playingGame">
+  <div class="row">
+
+    <div class="superBall col-8 d-flex justify-content-center animate__animated animate__heartBeat animate__slower "
+         [ngStyle]="{backgroundColor: winnerBall.classColor}">
+      <span class="align-self-center text-white"> {{winnerBall.number}}</span>
+    </div>
+    <div class="col "
+         *ngIf="showResult">
+      <div class="alert alert-success "
+           *ngIf="win"
+           role="alert">
+        <h1>You win: {{this.ballService.betMade * 1.5}}€ !!</h1>
+      </div>
+      <div class="alert alert-danger "
+           *ngIf="!win"
+           role="alert">
+        You loose :(
+      </div>
+      <div class="alert alert-warning "
+           *ngIf="!win && this.ballService.currentFunds === 0"
+           role="alert">
+        <b>You have run out of funds. Please, add funds with the button in the header.</b>
+      </div>
+      <button mat-raised-button
+              (click)="resetGame()"
+              color="accent">Reset game</button>
+    </div>
+  </div>
+
+
+</div>

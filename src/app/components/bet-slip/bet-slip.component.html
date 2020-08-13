@@ -1,0 +1,38 @@
+<div *ngIf="chosenBall"
+     class="ml-2 ">
+  <h1>Chosen ball</h1>
+  <div class="ball col d-flex justify-content-center "
+       [ngStyle]="{backgroundColor: chosenBall.classColor}">
+    <span class="align-self-center text-white"> {{chosenBall.number}}</span>
+  </div>
+</div>
+<div class="alert alert-warning ml-2"
+     role="alert"
+     *ngIf="!chosenBall">
+  Please, choose a ball.
+</div>
+
+<form [formGroup]="betForm"
+      autocomplete="off"
+      #formDirective="ngForm"
+      (ngSubmit)="playGame(betForm)">
+
+  <mat-form-field class="ml-2">
+    <mat-label>Stake</mat-label>
+    <input matInput
+           type="number"
+           formControlName="stake"
+           class="text-center"
+           placeholder="Stake of the bet">
+
+    <mat-error *ngIf="betForm.controls.stake.touched && betForm.controls.stake.status === 'INVALID'">
+      Please, enter number higher than 5€ and lower than {{this.ballService.currentFunds}}€.
+    </mat-error>
+    <mat-hint>Enter a bet, minimum: 5€, maximum: {{this.ballService.currentFunds}}€</mat-hint>
+  </mat-form-field>
+  <button mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="betForm.controls.stake.status === 'INVALID' || betForm.value.stake > this.ballService.currentFunds || !chosenBall || playing"
+          class="mt-3 ml-2 btn-block ">Place bet</button>
+</form>

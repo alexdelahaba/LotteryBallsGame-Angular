@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+    <span>Super Ball Game</span>
+    <span class="spacer"></span>
+    <span class="d-none d-sm-block">Current funds: {{this.ballService.currentFunds}}€</span>
+    <button mat-mini-fab
+            class="ml-3"
+            color="accent"
+            (click)="this.ballService.currentFunds = this.ballService.currentFunds +1"
+            aria-label="Example icon button with a plus one icon">
+      <mat-icon>plus_one</mat-icon>€
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
