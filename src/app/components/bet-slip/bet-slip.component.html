@@ -25,10 +25,11 @@
            class="text-center"
            placeholder="Stake of the bet">
 
-    <mat-error *ngIf="betForm.controls.stake.touched && betForm.controls.stake.status === 'INVALID'">
+    <mat-error *ngIf="(betForm.controls.stake.touched && betForm.controls.stake.status === 'INVALID') ">
       Please, enter number higher than 5€ and lower than {{this.ballService.currentFunds}}€.
     </mat-error>
-    <mat-hint>Enter a bet, minimum: 5€, maximum: {{this.ballService.currentFunds}}€</mat-hint>
+
+    <mat-hint>Enter a bet, minimum: <b>5€</b>, maximum: <b>{{this.ballService.currentFunds}}€</b></mat-hint>
   </mat-form-field>
   <button mat-raised-button
           color="primary"

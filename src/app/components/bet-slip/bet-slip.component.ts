@@ -12,14 +12,24 @@ export class BetSlipComponent implements OnInit {
   chosenBall: Ball;
   betForm: FormGroup;
   playing = false;
+  maxValue = 0;
+
   constructor(public ballService: BallService, private fb: FormBuilder) {
     this.betForm = this.fb.group({
-      stake: ['', [Validators.required, Validators.min(5)]],
+      stake: [
+        '',
+        [
+          Validators.required,
+          Validators.min(5),
+          Validators.max(this.ballService.currentFunds),
+        ],
+      ],
     });
   }
 
   ngOnInit(): void {
     this.listenToBallChanges();
+    this.maxValue = this.ballService.currentFunds;
   }
 
   playGame(betForm: FormGroup) {
