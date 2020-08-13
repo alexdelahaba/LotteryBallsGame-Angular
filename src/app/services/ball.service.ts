@@ -20,8 +20,4 @@ export class BallService {
     this.chosenBall = ball;
     this.observableChosenBall.next(ball);
   }
-
-  printData() {
-    console.log(this.ballData);
-  }
 }
